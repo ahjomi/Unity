@@ -7,7 +7,11 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed;
     public Rigidbody2D theRB;
+
     public Transform bottomLeftLimit, topRightLimit;
+
+    public Transform shotPoint;
+    public GameObject shot;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,11 @@ public class PlayerController : MonoBehaviour
            Mathf.Clamp(transform.position.x, bottomLeftLimit.position.x, topRightLimit.position.x),
            Mathf.Clamp(transform.position.y, bottomLeftLimit.position.y, topRightLimit.position.y),
            transform.position.z);
+
+       if(Input.GetButtonDown("Fire1"))
+       {
+           Instantiate(shot, shotPoint.position, shotPoint.rotation);
+       }
 
 
     }
