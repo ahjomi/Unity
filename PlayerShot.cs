@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerShot : MonoBehaviour
 {
     public float shotSpeed = 7f;
+    public GameObject impactEffect;
+
+    public GameObject objectExplosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,15 @@ public class PlayerShot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Instantiate(impactEffect, transform.position, transform.rotation);
+
+
+        if(other.tag == "Space Object")
+        {
+            Instantiate(objectExplosion, other.transform.position, other.transform.rotation);
+            Destroy(other.gameObject);
+        }
+        
         Destroy(this.gameObject);
     }
 
