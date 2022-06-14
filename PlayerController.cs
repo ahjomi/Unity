@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour
 
     public Transform bottomLeftLimit, topRightLimit;
 
+    // Position of the player shots
     public Transform shotPoint;
+    // Object that will duplicate
     public GameObject shot;
 
     public float timeBetweenShots = .1f;
@@ -43,6 +45,10 @@ public class PlayerController : MonoBehaviour
            Mathf.Clamp(transform.position.y, bottomLeftLimit.position.y, topRightLimit.position.y),
            transform.position.z);
 
+        /*
+            GetButtonDown = Check if the button is being pressed
+            Fire1 = Default setting that is built in unity
+        */  
        if(Input.GetButtonDown("Fire1"))
        {
            Instantiate(shot, shotPoint.position, shotPoint.rotation);
@@ -50,12 +56,17 @@ public class PlayerController : MonoBehaviour
            shotCounter = timeBetweenShots;
        }
 
+        /*
+            GetButton = holding the button
+        */
        if(Input.GetButton("Fire1"))
        {
+           // Time.deltaTime = Is how long it takes to go from one frame to the next(How long has it been since the last update was called)
            shotCounter -= Time.deltaTime;
            if(shotCounter <= 0)
            {
                Instantiate(shot, shotPoint.position, shotPoint.rotation);
+               // reset the timer
                shotCounter = timeBetweenShots;
            }
        }

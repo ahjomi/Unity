@@ -12,8 +12,10 @@ public class MovingObject : MonoBehaviour
         transform.position -= new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);        
     }
 
+    // OnBecameInvisible() = Checking if the object has gone off the screen
     private void OnBecameInvisible()
     {
+        // gameObject will be destroyed when the item becomes invisible
         Destroy(gameObject);
     }
     

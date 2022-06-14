@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DestroyOverTime : MonoBehaviour
 {
+    // Countdown the lift time
     public float lifetime;
     // Start is called before the first frame update
     void Start()
