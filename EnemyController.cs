@@ -17,10 +17,21 @@ public class EnemyController : MonoBehaviour
     // and if the enemy ship reach that point it will change to a different direction
     public Vector2 changedDirection;
 
+    public GameObject shotToFire;
+    public Transform firePoint; // Where we are going to launch the shots from
+    public float timeBetweenShots; // How long we wait between shots
+    private float shotCounter; // Count down between those shots
+
+    public bool canShoot;
+    private bool allowShooting;
+
+    public int currentHealth;
+    public GameObject deathEffect;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        shotCounter = timeBetweenShots;        
     }
 
     void Update()
@@ -47,13 +58,38 @@ public class EnemyController : MonoBehaviour
                                                   0f);
             }
         }
-
+         if(allowShooting)
+         {
+            shotCounter -= Time.deltaTime;
+            if(shotCounter <= 0)
+            {
+                shotCounter = timeBetweenShots;
+                Instantiate(shotToFire, firePoint.position, firePoint.rotation);
+            }
+         }
     }
 
+    public void HurtEnemy()
+    {
+        currentHealth--;
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+            Instantiate(deathEffect, transform.position, transform.rotation);
+        }
+    }
     // OnBecameInvisible() = Checking if the object has gone off the screen
     private void OnBecameInvisible()
     {
         // gameObject will be destroyed when the item becomes invisible
         Destroy(gameObject);
+    }
+
+    private void OnBecameVisible()
+    {
+        if(canShoot)
+        {
+            allowShooting = true;
+        }
     }
 }
